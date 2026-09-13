@@ -1,6 +1,7 @@
 #include "Train.h"
 
 Train::Train() {
+    std::cout << "Constructor Train" << std::endl;
     name_destination = "temp";
     number_train = 0;
     hours_departure = 0;
@@ -8,7 +9,11 @@ Train::Train() {
 }
 
 Train::Train(const std::string &name_destination, int number_train, int hours_departure, int minutes_departure) {
+    std::cout << "Constructor Train" << std::endl;
     this->name_destination = name_destination;
+    if (number_train < 0) {
+        throw std::invalid_argument("Number train cannot be negative");
+    }
     this->number_train = number_train;
     hours_departure = hours_departure > 23 ? 23 : hours_departure < 0 ? 0 : hours_departure;
     this->hours_departure = hours_departure;
@@ -17,6 +22,7 @@ Train::Train(const std::string &name_destination, int number_train, int hours_de
 }
 
 Train::Train(const Train &other) {
+    std::cout << "Copy constructor Train" << std::endl;
     name_destination = other.name_destination;
     number_train = other.number_train;
     hours_departure = other.hours_departure;
@@ -24,8 +30,8 @@ Train::Train(const Train &other) {
 }
 
 Train::~Train() {
+    std::cout << "Destructor Train" << std::endl;
 }
-
 
 Train &Train::operator=(const Train &other) {
     if (this == &other) {
@@ -43,6 +49,9 @@ std::istream &operator>>(std::istream &is, Train &train) {
     is >> train.name_destination;
     std::cout << "Enter the number of train: ";
     is >> train.number_train;
+    if (train.number_train < 0) {
+        throw std::invalid_argument("Number train cannot be negative");
+    }
     std::cout << "Enter the hours departure: ";
     is >> train.hours_departure;
     train.hours_departure = train.hours_departure > 23 ? 23 : train.hours_departure < 0 ? 0 : train.hours_departure;

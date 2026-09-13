@@ -24,4 +24,6 @@ public:
     friend std::istream &operator>>(std::istream &is, Train &train);
 
     friend std::ostream &operator<<(std::ostream &os, const Train &train);
+
+    int getNumberTrain() const { return number_train; }
 };
